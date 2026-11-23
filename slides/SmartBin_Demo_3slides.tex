@@ -1,0 +1,118 @@
+\documentclass[aspectratio=169,10pt,t]{beamer}
+\usepackage{srbtheme}
+\input{bin.tex}
+\title{Smart Recycling Bin -- Demo}
+
+\newcommand{\step}[4]{% x, số, icon, chữ
+  \node[circle,draw=navy,fill=navyL,line width=0.8pt,minimum size=1.15cm,text=navy] (s#2) at (#1,0) {\Large #3};
+  \node[circle,fill=acc,text=white,font=\tiny\bfseries,inner sep=1.2pt] at ($(s#2.north east)+(-0.1,-0.1)$) {#2};
+  \node[font=\scriptsize,align=center,text width=2.3cm,below=3pt of s#2] {#4};}
+\newcommand{\tile}[4]{% x, icon, số lớn, chú thích
+  \node[bw,minimum width=3.15cm,minimum height=1.55cm,draw=rulec] (t) at (#1,0) {};
+  \node[text=acc,anchor=west] at ($(t.west)+(0.2,0.25)$) {\large #2};
+  \node[font=\large\bfseries,text=navy,anchor=west] at ($(t.west)+(0.95,0.25)$) {#3};
+  \node[font=\tiny,align=left,anchor=north west,text width=2.8cm] at ($(t.west)+(0.2,-0.05)$) {#4};}
+
+\begin{document}
+
+% ================= 1. GIỚI THIỆU =================
+\begin{frame}[plain]
+\begin{columns}[c]
+\column{0.6\textwidth}
+\vskip10pt
+{\color{navy}\bfseries\scriptsize TRƯỜNG ĐẠI HỌC BÁCH KHOA -- ĐẠI HỌC ĐÀ NẴNG\\KHOA ĐIỆN TỬ VÀ TRÍ TUỆ NHÂN TẠO\par}
+\vskip2pt{\color{rulec}\rule{\linewidth}{0.4pt}}\par\vskip10pt
+{\color{acc}\small DEMO SẢN PHẨM\par}\vskip4pt
+{\color{navy}\bfseries\LARGE Thùng rác thông minh\par}\vskip2pt
+{\color{navy}\bfseries\Large nhận diện AI \& tích điểm thưởng\par}\vskip5pt
+{\color{mute}\footnotesize Smart Recycling Bin with AI Recognition and Reward System\par}\vskip10pt
+\small
+Thùng rác \kw{tự nhận ra} chai nhựa, lon, ly nhựa,\\\kw{chỉ mở khi bỏ đúng} và \hl{cộng điểm} cho học sinh.\par\vskip10pt
+\begin{tikzpicture}[ch/.style={bx,font=\scriptsize,inner sep=4pt}]
+  \node[ch] (a) at (0,0) {\faBrain~AI trên thiết bị};
+  \node[ch,right=4pt of a] (b) {\faSun~Năng lượng mặt trời};
+  \node[ch,right=4pt of b] (c) {\faBroadcastTower~LoRa};
+  \node[ch,draw=accM,fill=accL,right=4pt of c] (d) {\faQrcode~Tích điểm QR};
+\end{tikzpicture}\par\vskip12pt
+{\scriptsize\begin{tabular}{@{}>{\color{navy}\bfseries}l l@{}}
+  GVHD: & Trần Văn Líc\\
+  SVTH: & Nguyễn Công Bình -- Nguyễn Tấn Dũng -- Phan Văn Trà
+\end{tabular}\par}
+\column{0.36\textwidth}
+\centering\vskip14pt
+\renewcommand{\binfs}{\fontsize{4.3}{5}\selectfont}\renewcommand{\binfss}{\fontsize{3.8}{4.3}\selectfont}\renewcommand{\binqrh}{0.62cm}
+\begin{tikzpicture}[scale=0.68]
+  \fill[navyL] (2,-0.15) ellipse (3.0 and 0.25);
+  \binfront
+  \draw[mute,{Stealth[length=3pt]}-{Stealth[length=3pt]}] (4.35,0) -- (4.35,7) node[midway,right,font=\tiny,text=txt] {70 cm};
+  \draw[mute,{Stealth[length=3pt]}-{Stealth[length=3pt]}] (0,-0.55) -- (4,-0.55) node[midway,below,font=\tiny,text=txt] {40 cm};
+\end{tikzpicture}
+\end{columns}
+\end{frame}
+
+% ================= 2. CÁCH HOẠT ĐỘNG =================
+\begin{frame}{Cách hoạt động}
+\centering
+\begin{tikzpicture}
+  \step{0}{1}{\faWalking}{\textbf{Đến gần}\\cảm biến tiệm cận đánh thức thùng}
+  \step{2.95}{2}{\faCamera}{\textbf{Đặt vật vào buồng}\\camera + đèn LED chụp ảnh}
+  \step{5.9}{3}{\faBrain}{\textbf{AI nhận diện}\\MobileNet chạy ngay trên ESP32-S3}
+  \step{8.85}{4}{\faDoorOpen}{\textbf{Cánh lật mở}\\chỉ khi vật hợp lệ, đúng khoang}
+  \step{11.8}{5}{\faQrcode}{\textbf{Quét QR nhận điểm}\\credit, cấp độ, CO$_2$}
+  \foreach \i/\j in {1/2,2/3,3/4,4/5} \draw[ar,line width=1pt] (s\i) -- (s\j);
+\end{tikzpicture}
+\vskip10pt
+\begin{columns}[T]
+\column{0.32\textwidth}
+\centering
+\renewcommand{\binfs}{\fontsize{3.6}{4.1}\selectfont}
+\begin{tikzpicture}[scale=0.56]
+  \binsection
+  \node[font=\tiny,text=acc,anchor=west] at (4.15,5.05) {\faArrowLeft~cánh lật};
+  \node[font=\tiny,text=teal,anchor=west] at (4.15,6.6) {\faArrowLeft~camera};
+  \node[font=\tiny,text=navy,anchor=west] at (4.15,4.0) {\faArrowLeft~siêu âm};
+\end{tikzpicture}
+\column{0.64\textwidth}
+\vskip6pt
+\hd{Trong video demo}
+\footnotesize
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{@{}c l l@{}}
+\textcolor{grn}{\faCheckCircle} & Đưa \kw{chai nhựa} & $\rightarrow$ cánh lật \textbf{trái}, TFT báo kết quả\\
+\textcolor{grn}{\faCheckCircle} & Đưa \kw{lon nước} & $\rightarrow$ cánh lật \textbf{phải} vào khoang lon\\
+\textcolor{red}{\faTimesCircle} & Đưa \kw{giấy / vật khác} & $\rightarrow$ \hl{từ chối}, cánh không mở\\
+\textcolor{acc}{\faQrcode} & Quét QR trên thùng & $\rightarrow$ điểm cộng trên ứng dụng\\
+\textcolor{navy}{\faMapMarker*} & Mở bản đồ thùng & $\rightarrow$ mức đầy cập nhật qua LoRa\\
+\end{tabular}
+\end{columns}
+\end{frame}
+
+% ================= 3. HỆ THỐNG + ĐIỂM NỔI BẬT =================
+\begin{frame}{Hệ thống phía sau}
+\centering
+\begin{tikzpicture}[n/.style={bx,text width=2.0cm,minimum height=1.15cm,font=\scriptsize}]
+  \node[n,draw=navy,fill=navy,text=white] (b) at (0,0) {\faTrash\\\textbf{Thùng rác}\\ESP32-S3 + STM32};
+  \node[n] (g) at (3.4,0) {\faBroadcastTower\\\textbf{Gateway}\\LoRa AS923};
+  \node[n] (s) at (6.8,0) {\faServer\\\textbf{Server}\\MQTT + CSDL};
+  \node[n,draw=accM,fill=accL] (a) at (10.2,0) {\faMobile*\\\textbf{Ứng dụng}\\điểm, bản đồ};
+  \node[n,draw=grn,fill=grnL,text width=1.5cm] (p) at (12.9,0) {\faUserGraduate\\\textbf{Học sinh}};
+  \draw[ard,line width=0.9pt] (b) -- node[above,lbl,text=acc]{LoRa} (g);
+  \draw[ar,line width=0.9pt] (g) -- node[above,lbl]{Internet} (s);
+  \draw[ar,line width=0.9pt,<->] (s) -- node[above,lbl]{4G} (a);
+  \draw[arg,<->] (a) -- (p);
+  \node[bg,font=\tiny,below=6pt of b] {\faSun~acquy + pin mặt trời};
+\end{tikzpicture}
+\vskip14pt
+\begin{tikzpicture}
+  \tile{0}{\faStopwatch}{$\le$ 1 s}{nhận diện ngay trên thùng,\\không cần Internet}
+  \tile{3.55}{\faBatteryFull}{$\approx$ 2 tuần}{chạy không cần nắng nhờ\\ngủ sâu + acquy 84 Wh}
+  \tile{7.1}{\faBroadcastTower}{14 byte}{mỗi bản ghi LoRa; đệm lại\\khi mất sóng, không mất dữ liệu}
+  \tile{10.65}{\faLock}{5 lớp}{chống gian lận: AI, GPS,\\phiên 60 s, hạn mức, server}
+\end{tikzpicture}
+\vskip14pt
+{\color{navy}\bfseries\large Bỏ đúng -- nhận điểm -- thành thói quen.\par}
+\vskip3pt
+{\color{mute}\footnotesize Cảm ơn thầy cô và các bạn đã theo dõi!\par}
+\end{frame}
+
+\end{document}

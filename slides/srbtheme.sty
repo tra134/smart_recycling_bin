@@ -1,0 +1,79 @@
+% Theme dùng chung – mô phỏng phong cách slide gốc (Beamer, VN Sans, navy/cam/teal)
+\ProvidesPackage{srbtheme}
+\RequirePackage[T5]{fontenc}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage{lmodern}
+\RequirePackage{graphicx,booktabs,array,tabularx,multicol,colortbl}
+\RequirePackage{amsmath,amssymb}
+\RequirePackage{tikz}
+\RequirePackage{fontawesome5}
+\RequirePackage{qrcode}
+\usetikzlibrary{arrows.meta,positioning,calc,fit,backgrounds,shapes.geometric,shapes.misc,shapes.multipart,decorations.pathreplacing,shadows}
+
+% ---------- Màu (lấy từ slide gốc) ----------
+\definecolor{navy}{HTML}{153B60}
+\definecolor{navyL}{HTML}{EFF1F4}
+\definecolor{navyM}{HTML}{5B7690}
+\definecolor{rulec}{HTML}{ADBAC7}
+\definecolor{acc}{HTML}{C2640A}
+\definecolor{accL}{HTML}{FAF3EB}
+\definecolor{accM}{HTML}{CE833B}
+\definecolor{teal}{HTML}{087E8B}
+\definecolor{grn}{HTML}{5BA275}
+\definecolor{grnL}{HTML}{EFF6F1}
+\definecolor{txt}{HTML}{191919}
+\definecolor{mute}{HTML}{6B6B6B}
+\definecolor{red}{HTML}{C0392B}
+
+% ---------- Beamer ----------
+\setbeamertemplate{navigation symbols}{}
+\setbeamercolor{normal text}{fg=txt,bg=white}
+\setbeamercolor{structure}{fg=navy}
+\setbeamercolor{frametitle}{fg=navy}
+\setbeamercolor{title}{fg=navy}
+\setbeamerfont{frametitle}{size=\large,series=\bfseries}
+\setbeamertemplate{frametitle}{%
+  \vskip2pt\usebeamerfont{frametitle}\usebeamercolor[fg]{frametitle}\insertframetitle\par
+  \vskip-3pt{\color{rulec}\rule{\linewidth}{0.4pt}}\vskip-4pt}
+\setbeamertemplate{footline}{%
+  \hfill{\color{mute}\tiny\insertframenumber/\inserttotalframenumber}\hspace*{4mm}\vskip2.5mm}
+\setbeamertemplate{itemize item}{\color{navy}\raisebox{0.15ex}{\scalebox{0.75}{$\bullet$}}}
+\setbeamertemplate{itemize subitem}{\color{navyM}\raisebox{0.15ex}{\scalebox{0.6}{$\bullet$}}}
+\setbeamertemplate{enumerate item}{\color{navy}\insertenumlabel.}
+\setlength{\leftmargini}{1.2em}
+\setbeamersize{text margin left=6mm,text margin right=6mm}
+
+% ---------- Macro ----------
+\newcommand{\hd}[1]{{\color{navy}\bfseries #1}\par\vskip1pt}
+\newcommand{\hl}[1]{{\color{acc}#1}}
+\newcommand{\kw}[1]{{\color{navy}\bfseries #1}}
+\newcommand{\smallnote}[1]{{\color{mute}\scriptsize #1}}
+\newcommand{\credit}[1]{{\color{mute}\fontsize{5}{6}\selectfont #1}}
+
+% ---------- Kiểu TikZ ----------
+\tikzset{
+  bx/.style={draw=navyM,fill=navyL,rounded corners=2pt,align=center,inner sep=3pt,font=\scriptsize},
+  bo/.style={draw=accM,fill=accL,rounded corners=2pt,align=center,inner sep=3pt,font=\scriptsize},
+  bg/.style={draw=grn,fill=grnL,rounded corners=2pt,align=center,inner sep=3pt,font=\scriptsize},
+  bw/.style={draw=rulec,fill=white,rounded corners=2pt,align=center,inner sep=3pt,font=\scriptsize},
+  ar/.style={-{Stealth[length=4pt]},teal,line width=0.7pt},
+  ard/.style={-{Stealth[length=4pt]},acc,dashed,line width=0.7pt},
+  arg/.style={-{Stealth[length=4pt]},navyM,line width=0.6pt},
+  lbl/.style={font=\tiny,text=txt,inner sep=1pt},
+}
+
+% ---------- Trang bìa ----------
+\newcommand{\coverpage}[4]{% #1 nhãn, #2 tiêu đề, #3 phụ đề, #4 ngày
+\begin{frame}[plain]
+  \centering\vskip-2pt
+  {\color{navy}\bfseries\small TRƯỜNG ĐẠI HỌC BÁCH KHOA -- ĐẠI HỌC ĐÀ NẴNG\\KHOA ĐIỆN TỬ VÀ TRÍ TUỆ NHÂN TẠO\par}
+  \vskip3pt{\color{rulec}\rule{0.78\linewidth}{0.4pt}}\par\vskip8pt
+  {\color{navy}\small #1\par}\vskip8pt
+  {\color{navy}\bfseries\Large #2\par}\vskip6pt
+  {\color{mute}\footnotesize #3\par}\vskip10pt
+  {\small\begin{tabular}{@{}>{\color{navy}\bfseries}l l@{}}
+    GVHD: & Trần Văn Líc\\[3pt]
+    SVTH: & Nguyễn Công Bình -- Nguyễn Tấn Dũng -- Phan Văn Trà\\[3pt]
+    Ngày: & #4
+  \end{tabular}\par}
+\end{frame}}
